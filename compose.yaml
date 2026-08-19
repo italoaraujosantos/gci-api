@@ -1,10 +1,35 @@
 services:
+
   mysql:
-    image: 'mysql:latest'
+    image: italoaraujosantos/gestor-carteira-mysql:1.0
+    container_name: gestor-carteira-mysql
+    restart: unless-stopped
+
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gestor_carteira
+      MYSQL_USER: carteira
+      MYSQL_PASSWORD: carteira
+      HG_BRASIL_API_KEY: ${HG_BRASIL_API_KEY}
+
     ports:
-      - '3306'
+      - "3306:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "carteira", "-pcarteira"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+    networks:
+      - gestor-carteira-network
+
+volumes:
+  mysql_data:
+
+networks:
+  gestor-carteira-network:
+    driver: bridge
