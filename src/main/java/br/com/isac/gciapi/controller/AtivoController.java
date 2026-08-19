@@ -2,21 +2,22 @@ package br.com.isac.gciapi.controller;
 
 import br.com.isac.gciapi.entity.Ativo;
 import br.com.isac.gciapi.repository.AtivoRepository;
-import br.com.isac.gciapi.service.CotacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import tools.jackson.databind.JsonNode;
+
+
+import java.math.BigDecimal;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
-@RequestMapping("/ativos")
+@RequestMapping("/api/ativos")
 @CrossOrigin(origins = "*")
 public class AtivoController {
 
     @Autowired
     private AtivoRepository ativoRepository;
-    @Autowired
-    private CotacaoService cotacaoService;
 
     @GetMapping
     public Iterable<Ativo> listarAtivos() {
@@ -38,8 +39,10 @@ public class AtivoController {
     }
 
     @GetMapping("/{ticker}/cotacao")
-    public JsonNode buscarCotacao(@PathVariable String ticker) {
-        return cotacaoService.buscarCotacao(ticker);
+    public BigDecimal buscarCotacao(@PathVariable String ticker) {
+        return ativoRepository.findByTicker(ticker)
+                .map(Ativo::getPrecoAtual)
+                .orElseThrow(() -> new RuntimeException("Ativo não encontrado com o Ticker: " + ticker));
     }
 
     @PostMapping
@@ -48,7 +51,7 @@ public class AtivoController {
     }
 
     @PutMapping("/{id}")
-    public Ativo atualizarAtivo(@PathVariable Long id, Ativo ativoAtualizado) {
+    public Ativo atualizarAtivo(@PathVariable Long id, @RequestBody Ativo ativoAtualizado) {
         Ativo ativoExistente = ativoRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Ativo não encontrado com o ID: " +id)
         );
