@@ -2,9 +2,11 @@ package br.com.isac.gciapi.controller;
 
 import br.com.isac.gciapi.entity.Ativo;
 import br.com.isac.gciapi.repository.AtivoRepository;
+import br.com.isac.gciapi.service.CotacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import tools.jackson.databind.JsonNode;
 
 @Controller
 @RequestMapping("/ativos")
@@ -13,6 +15,8 @@ public class AtivoController {
 
     @Autowired
     private AtivoRepository ativoRepository;
+    @Autowired
+    private CotacaoService cotacaoService;
 
     @GetMapping
     public Iterable<Ativo> listarAtivos() {
@@ -31,6 +35,11 @@ public class AtivoController {
         return ativoRepository.findByTicker(ticker).orElseThrow(
                 () -> new RuntimeException("Ativo não encontrado com o Ticker: " + ticker)
         );
+    }
+
+    @GetMapping("/{ticker}/cotacao")
+    public JsonNode buscarCotacao(@PathVariable String ticker) {
+        return cotacaoService.buscarCotacao(ticker);
     }
 
     @PostMapping
