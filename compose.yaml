@@ -10,7 +10,6 @@ services:
       MYSQL_DATABASE: gestor_carteira
       MYSQL_USER: carteira
       MYSQL_PASSWORD: carteira
-      HG_BRASIL_API_KEY: ${HG_BRASIL_API_KEY}
 
     ports:
       - "3306:3306"
