@@ -436,6 +436,13 @@ spring.datasource.password=carteira
 
 ## 4. Executar a aplicação
 
+Deve expor duas variaveis de ambiente.  Crie/configure as variáveis:
+
+```text
+export HG_BRASIL_API_KEY="SUA_CHAVE"
+export HGBRASIL_API_URL="https://api.hgbrasil.com"
+```
+
 Com Maven:
 
 ```bash
