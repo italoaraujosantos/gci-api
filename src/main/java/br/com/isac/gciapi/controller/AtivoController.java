@@ -55,12 +55,14 @@ public class AtivoController {
 
     @GetMapping("/ticker/{ticker}")
     public Ativo buscarAtivoPorTicker(@PathVariable String ticker) {
-        return ativoRepository.findByTicker(ticker.toUpperCase())
+        return ativoRepository.findByTicker(ticker)
                 .orElseThrow(() -> new RuntimeException("Ativo não encontrado com o Ticker: "+ ticker));
     }
 
     @PostMapping
     public Ativo criarAtivo(Ativo ativo) {
+        BigDecimal preco = cotacaoService.buscarCotacao(ativo.getTicker());
+        ativo.setPrecoCompra(preco);
         return ativoRepository.save(ativo);
     }
 
