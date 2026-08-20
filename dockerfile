@@ -1,0 +1,9 @@
+FROM mysql:8.0
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=gestor_carteira
+ENV MYSQL_USER=carteira
+ENV MYSQL_PASSWORD=carteira
+
+
+EXPOSE 3306

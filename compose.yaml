@@ -8,8 +8,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: gestor_carteira
-      MYSQL_USER: carteira
-      MYSQL_PASSWORD: carteira
+      SPRING_DATASOURCE_USERNAME: carteira
+      SPRING_DATASOURCE_PASSWORD: carteira
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
 
     ports:
       - "3306:3306"
