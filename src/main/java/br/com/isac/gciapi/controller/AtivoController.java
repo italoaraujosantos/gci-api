@@ -38,7 +38,9 @@ public class AtivoController {
 
     @GetMapping("/{ticker}/cotacao")
     public BigDecimal buscarCotacao(@PathVariable String ticker) {
-        return cotacaoService.buscarCotacao(ticker);
+        return ativoRepository.findByTicker(ticker)
+                .map(Ativo::getPrecoAtual)
+                .orElseThrow(() -> new RuntimeException("Ativo não encontrado com o Ticker: " + ticker));
     }
 
     @PutMapping("/{ticker}/cotacao")
