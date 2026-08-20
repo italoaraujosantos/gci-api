@@ -31,7 +31,7 @@ public class CotacaoService {
         String json = restClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/v2/finance/quotes")
-                        .queryParam("tickers", "B3:" + ticker.toUpperCase())
+                        .queryParam("tickers", "B3:" + ticker)
                         .queryParam("key", apiKey)
                         .build())
                 .retrieve()
@@ -39,7 +39,7 @@ public class CotacaoService {
 
         try {
             JsonNode root = objectMapper.readTree(json);
-            JsonNode resultado = root.path("results").path(ticker.toUpperCase()).path("price");
+            JsonNode resultado = root.path("results").path(ticker).path("price");
 
             if (resultado.isMissingNode() || !resultado.isNumber()) {
                 throw new RuntimeException("Cotação não encontrada para o ticker: " + ticker);
