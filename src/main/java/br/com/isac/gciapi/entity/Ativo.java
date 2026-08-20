@@ -1,41 +1,44 @@
 package br.com.isac.gciapi.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "ativo")
+@Table(name = "ativos")
 public class Ativo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "O ticker é obrigatório.")
-    @Column(name = "ticker", length = 10)
+    @Column(length = 10)
     private String ticker;
+
     @NotBlank(message = "O nome é obrigatório.")
-    @Column(name = "nome", length = 30)
+    @Column(length = 30)
     private String nome;
 
-    @NotBlank(message = "A quantidade é obrigatório.")
-    @Min(value = 100, message = "A quantidade deve ser multiplos de 100.")
-    @Column(name = "quantidade", nullable = true)
+    @NotBlank(message = "A quantidade é obrigatória.")
+    @Positive(message = "Quantidade deve ser maior que zero.")
+    @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 
     @NotBlank(message = "O preço de compra é obrigatório.")
-    @Column(name = "preco_compra", precision = 19, scale = 2)
+    @DecimalMin(value = "0.01", message = "O preço de compra deve ser maior que zero.")
+    @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal precoCompra;
 
-    @Column(name = "preco_atual", precision = 19, scale = 2)
+    @Column(precision = 19, scale = 2)
     private BigDecimal precoAtual;
 
-    @Column(name = "valor_investido", precision = 19, scale = 2)
+    @Column(precision = 19, scale = 2)
     private BigDecimal valorInvestido;
 
-    @Column(name = "valor_atual", precision = 19, scale = 2)
+    @Column(precision = 19, scale = 2)
     private BigDecimal valorAtual;
 
     public Ativo() {
