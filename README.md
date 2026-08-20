@@ -94,6 +94,19 @@ A entidade é mantida de forma plana, sem relacionamentos complexos com outras e
 
 ---
 
+## Executando aplicação GCI-API
+
+Deve expor duas variaveis de ambiente.  Crie/configure as variáveis:
+
+```text
+export HG_BRASIL_API_KEY="SUA_CHAVE"
+export HGBRASIL_API_URL="https://api.hgbrasil.com"
+```
+Execute pela IDE ou :
+```text
+./mvnw spring-boot:run
+```
+
 ## Endpoints
 
 A API está disponível, por padrão, em:
