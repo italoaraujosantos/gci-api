@@ -61,12 +61,12 @@ public class AtivoController {
                 .orElseThrow(() -> new RuntimeException("Ativo não encontrado com o Ticker: "+ ticker));
     }
 
-    @PostMapping("/{ticker}")
-    public Ativo salvarAtivo(@PathVariable String ticker) {
-        Ativo ativo = ativoRepository.findByTicker(ticker)
-                .orElseThrow(() -> new RuntimeException("O Ativo não foi localizado pelo Ticker: "+ticker));
+    @PostMapping
+    public Ativo salvarAtivo(@RequestBody Ativo ativo) {
         BigDecimal preco = cotacaoService.buscarCotacao(ativo.getTicker());
-        ativo.setPrecoCompra(preco);
+        ativo.setPrecoAtual(preco);
+        ativo.calcularValorAtual();
+        ativo.calcularValorInvestido();
         return ativoRepository.save(ativo);
     }
 
