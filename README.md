@@ -580,6 +580,10 @@ Em desenvolvimento.
 # Exclusão
 <img width="1920" height="1080" alt="Captura de tela de 2026-08-21 00-59-14" src="https://github.com/user-attachments/assets/cf2ea569-d6a5-4aeb-aff7-5152f9598a37" />
 
+# Atualização via end-point
+<img width="1876" height="545" alt="Captura de tela de 2026-08-21 19-39-05" src="https://github.com/user-attachments/assets/b5bd1b38-7a50-4ef1-9753-fcea7f847e8e" />
+
+
 
 
 ---
