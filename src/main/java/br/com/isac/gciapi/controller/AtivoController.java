@@ -47,7 +47,6 @@ public class AtivoController {
     public Ativo atualizarCotacao(@PathVariable String ticker) {
         Ativo ativo = buscarAtivoPorTicker(ticker);
         BigDecimal cotacao = cotacaoService.buscarCotacao(ticker);
-
         ativo.setPrecoAtual(cotacao);
         ativo.setValorInvestido(ativo.calcularValorInvestido());
         ativo.setValorAtual(ativo.calcularValorAtual());
@@ -63,6 +62,8 @@ public class AtivoController {
 
     @PostMapping
     public Ativo salvarAtivo(@RequestBody Ativo ativo) {
+       // BigDecimal cotacao = cotacaoService.buscarCotacao(ativo.getTicker());
+       // ativo.setPrecoAtual(cotacao);
         ativo.getPrecoCompra();
         ativo.calcularValorAtual();
         ativo.calcularValorInvestido();
