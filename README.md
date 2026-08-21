@@ -572,6 +572,16 @@ Em desenvolvimento.
 * [ ] Validações
 * [ ] Documentação completa
 
+## Gravação em Banco de dados
+
+# Cadastro 
+<img width="1920" height="1080" alt="Captura de tela de 2026-08-21 00-52-30" src="https://github.com/user-attachments/assets/ae22549d-11cc-4571-97bf-5352e17597cb" />
+
+# Exclusão
+<img width="1920" height="1080" alt="Captura de tela de 2026-08-21 00-59-14" src="https://github.com/user-attachments/assets/cf2ea569-d6a5-4aeb-aff7-5152f9598a37" />
+
+
+
 ---
 
 ## Projeto acadêmico
