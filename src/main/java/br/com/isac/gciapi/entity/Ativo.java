@@ -22,14 +22,12 @@ public class Ativo {
     @Column(length = 30)
     private String nome;
 
-    @NotBlank(message = "A quantidade é obrigatória.")
-    @Positive(message = "Quantidade deve ser maior que zero.")
+    @Positive(message = "A quantidade é obrigatória e deve ser maior que zero.")
     @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 
-    @NotBlank(message = "O preço de compra é obrigatório.")
-    @DecimalMin(value = "0.01", message = "O preço de compra deve ser maior que zero.")
-    @Column(nullable = false, precision = 19, scale = 2)
+    @DecimalMin(value = "0.01", message = "Campo obrigatório. O preço de compra deve ser maior que zero.")
+    @Column(precision = 19, scale = 2)
     private BigDecimal precoCompra;
 
     @Column(precision = 19, scale = 2)
@@ -41,6 +39,8 @@ public class Ativo {
     @Column(precision = 19, scale = 2)
     private BigDecimal valorAtual;
 
+    @Column(precision = 19, scale = 2)
+    private BigDecimal resultado;
     public Ativo() {
     }
 
@@ -108,6 +108,14 @@ public class Ativo {
         this.valorAtual = valorAtual;
     }
 
+    public BigDecimal getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(BigDecimal resultado) {
+        this.resultado = resultado;
+    }
+
     public BigDecimal calcularValorInvestido() {
         if (quantidade != null && precoCompra != null) {
             return precoCompra.multiply(BigDecimal.valueOf(quantidade));
@@ -123,5 +131,14 @@ public class Ativo {
             return BigDecimal.ZERO;
         }
     }
+
+    public BigDecimal calcularResultado() {
+        if (valorAtual != null && valorInvestido != null) {
+            return valorAtual.subtract(valorInvestido);
+        } else {
+            return BigDecimal.ZERO;
+        }
+    }
+
 
 }
